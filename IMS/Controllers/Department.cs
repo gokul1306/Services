@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
-using IMS.Model;
 using IMS.Service;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 namespace IMS.Controllers;
 

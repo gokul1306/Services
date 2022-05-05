@@ -1,4 +1,3 @@
-
 using IMS.Model;
 using IMS.DataAccessLayer;
 namespace IMS.Service
@@ -70,10 +69,7 @@ namespace IMS.Service
                 throw new Exception();
             }
         }
-
-    }
-
- public bool CreateProject(int departmentId,string projectName)
+         public bool CreateProject(int departmentId,string projectName)
         {
             if (departmentId <= 0 || projectName == null)
                 throw new ArgumentNullException("DepartmentId or Project Name  is not provided");
@@ -82,7 +78,7 @@ namespace IMS.Service
             {
                 _project.ProjectName = projectName;
                 _project.DepartmentId= departmentId;
-                return _departmentDataAccessLayer.AddProjectToDatabase(_) ? true : false; // LOG Error in DAL;
+                return _departmentDataAccessLayer.AddProjectToDatabase(_project) ? true : false; // LOG Error in DAL;
             }
             catch (Exception)
             {
@@ -122,7 +118,7 @@ namespace IMS.Service
             try
             {
                 IEnumerable<Project> projects = new List<Project>();
-                return Projects = from project in _departmentDataAccessLayer.GetProjectsFromDatabase() where project.IsActive == true select project;
+                return projects = from project in _departmentDataAccessLayer.GetProjectsFromDatabase() where project.IsActive == true select project;
             }
             catch (Exception)
             {
@@ -130,6 +126,10 @@ namespace IMS.Service
                 throw new Exception();
             }
         }
+
+    }
+
+
 
 
 

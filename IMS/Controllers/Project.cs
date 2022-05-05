@@ -13,7 +13,7 @@ namespace project.Controller;
         _logger = logger;
     }
     
-
+ IDepartmentService departmentService1 = DataFactory.DepartmentDataFactory.GetDepartmentServiceObject();
     [HttpPost]
     public IActionResult CreateNewProject( int departmentId,string projectName)
     {
@@ -22,7 +22,7 @@ namespace project.Controller;
 
         try
         {
-            return DepartmentService.CreateProject(departmentId,projectName) ? Ok("Project Added Successfully") : BadRequest("Sorry internal error occured");
+            return departmentService1.CreateProject(departmentId,projectName) ? Ok("Project Added Successfully") : BadRequest("Sorry internal error occured");
         }
         catch (Exception exception)
         {
@@ -37,7 +37,7 @@ namespace project.Controller;
 
         try
         {
-            return DepartmentService.RemoveProject(projectId) ? Ok("Project Removed Successfully") : BadRequest("Sorry internal error occured");
+            return departmentService1.RemoveProject(projectId) ? Ok("Project Removed Successfully") : BadRequest("Sorry internal error occured");
         }
         catch (Exception exception)
         {
@@ -50,7 +50,7 @@ namespace project.Controller;
     {
         try
         {
-            return Ok(DepartmentService.ViewProjects());
+            return Ok(departmentService1.ViewProjects());
         }
         catch (Exception exception)
         {
