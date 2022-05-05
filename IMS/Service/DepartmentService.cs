@@ -7,6 +7,7 @@ namespace IMS.Service
     {
         private IDepartmentDataAccessLayer _departmentDataAccessLayer = DataFactory.DepartmentDataFactory.GetDepartmentDataAccessLayerObject();
         private Department _department = DataFactory.DepartmentDataFactory.GetDepartmentObject();
+       private Project _project = DataFactory.DepartmentDataFactory.GetProjectObject();
 
         /*  
             Returns False when Exception occured in Data Access Layer
@@ -71,4 +72,66 @@ namespace IMS.Service
         }
 
     }
+
+ public bool CreateProject(int departmentId,string projectName)
+        {
+            if (departmentId <= 0 || projectName == null)
+                throw new ArgumentNullException("DepartmentId or Project Name  is not provided");
+
+            try
+            {
+                _project.ProjectName = projectName;
+                _project.DepartmentId= departmentId;
+                return _departmentDataAccessLayer.AddProjectToDatabase(_) ? true : false; // LOG Error in DAL;
+            }
+            catch (Exception)
+            {
+                
+                // Log "Exception Occured in Data Access Layer"
+                return false;
+            }
+        }
+
+        /*  
+            Returns False when Exception occured in Data Access Layer
+            
+            Throws ArgumentNullException when Project Id is not passed to this service method
+        */
+
+        public bool RemoveProject(int projectId)
+        {
+            if (projectId <= 0)
+                throw new ArgumentNullException("project Id is not provided");
+
+            try
+            {
+                return _departmentDataAccessLayer.RemoveProjectFromDatabase(projectId) ? true :false; // LOG Error in DAL;
+            }
+            catch (Exception)
+            {
+                // Log "Exception Occured in Data Access Layer"
+                return false;
+            }
+        }
+
+        /*  
+            Throws Exception when Exception occured in DAL while fetching roles
+        */
+        public IEnumerable<Project> ViewProjects()
+        {
+            try
+            {
+                IEnumerable<Project> projects = new List<Project>();
+                return Projects = from project in _departmentDataAccessLayer.GetProjectsFromDatabase() where project.IsActive == true select project;
+            }
+            catch (Exception)
+            {
+                //Log "Exception occured in DAL while fetching roles"
+                throw new Exception();
+            }
+        }
+
+
+
+
 }

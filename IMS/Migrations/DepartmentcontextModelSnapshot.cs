@@ -29,7 +29,7 @@ namespace IMS.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeparmentId"), 1L, 1);
 
-                    b.Property<string>("Deparmentname")
+                    b.Property<string>("DepartmentName")
                         .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
